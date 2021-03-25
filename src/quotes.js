@@ -1,0 +1,31 @@
+var quotes = [
+  "“People demand freedom of speech as a compensation for the freedom of thought which they seldom use.” -Soren Kierkegaard",
+  "“They who can give up essential liberty to obtain a little temporary safety deserve neither liberty nor safety.” -Benjamin Franklin",
+  "“Better to die fighting for freedom than be a prisoner all the days of your life.” -Bob Marley",
+  "“Those who deny freedom to others, deserve it not for themselves” -Abraham Lincoln",
+  "“If liberty means anything at all, it means the right to tell people what they do not want to hear.” -George Orwell",
+  "“What difference does it make to the dead, the orphans and the homeless, whether the mad destruction is wrought under the name of totalitarianism or in the holy name of liberty or democracy?” -Mahatma Gandhi",
+  "“For to be free is not merely to cast off one's chains, but to live in a way that respects and enhances the freedom of others.” -Nelson Mandela",
+  "“Disobedience is the true foundation of liberty. The obedient must be slaves.” -Henry David Thoreau",
+  "“I was not born to be forced. I will breathe after my own fashion. Let us see who is the strongest.” -Henry David Thoreau",
+  "“I am not free while any woman is unfree, even when her shackles are very different from my own.” -audre lorde",
+  "“I would rather be exposed to the inconveniences attending too much liberty than to those attending too small a degree of it.” -Thomas Jefferson",
+  "“Freedom is not something that anybody can be given. Freedom is something people take, and people are as free as they want to be” -James Baldwin",
+  "“People have only as much liberty as they have the intelligence to want and the courage to take.” -Emma Goldman",
+  "“The end may justify the means as long as there is something that justifies the end.” -Leon Trotsky",
+  "“I am an American; free born and free bred, where I acknowledge no man as my superior, except for his own worth, or as my inferior, except for his own demerit.” -Theodore Roosevelt",
+  "“There will come a time when it isn't 'They're spying on me through my phone' anymore. Eventually, it will be 'My phone is spying on me'.” -Philip K. Dick",
+  "“This is my doctrine: Give every other human being every right you claim for yourself.” -Robert G. Ingersoll",
+  "“Those who expect to reap the blessings of freedom, must, like men, undergo the fatigues of supporting it.” -Thomas Paine",
+  "“Nothing is more difficult, and therefore more precious, than to be able to decide.” -Napoleon Bonaparte",
+  "“But words are things, and a small drop of ink, falling, like dew, upon a thought produces that which makes thousands, perhaps millions think.” -Lord George Gordon Byron",
+  "“Is life so dear, or peace so sweet, as to be purchased at the price of chains and slavery? Forbid it, Almighty God! I know not what course others may take; but as for me, give me liberty or give me death!” -Patrick Henry",
+  "“Liberty means responsibility. That is why most men dread it.” -George Bernard Shaw",
+  "“If a free society cannot help the many who are poor, it cannot save the few who are rich.” -John F. Kennedy",
+  "“The advancement and diffusion of knowledge is the only guardian of true liberty.” -James Madison",
+  "“Give me the liberty to know, to utter, and to argue freely according to conscience, above all liberties.” -John Milton",
+  "“Whoever would overthrow the liberty of a nation must begin by subduing the freeness of speech.” -Benjamin Franklin",
+  "“The price of freedom is eternal vigilance.” -John Philpot Curran"
+];
+
+export default quotes;
