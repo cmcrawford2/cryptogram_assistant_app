@@ -161,7 +161,7 @@ class App extends React.Component {
     }
     lc.sort(); // Sort A to Z
     var lettersAndCounts = [];
-    for (var i = 0; i < lc.length; i++) {
+    for (i = 0; i < lc.length; i++) {
       var j = i;
       while (j < lc.length - 1 && lc[j] === lc[j + 1]) {
         j++; // count how many of this letter there are.
