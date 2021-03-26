@@ -2,8 +2,9 @@
   font-family: /*'Montserrat',*/ sans-serif;
   text-align: center;
   padding-top: 10px;
-  background-color: peachpuff;
-  height: 1200px;
+  background-color: #fffbb0;
+  min-height: 1200px;
+  background-size: auto;
   background-image: url(https://i.ibb.co/BnjYJyK/little-letters.gif);
   background-position: center;
   background-repeat: repeat;
@@ -16,7 +17,9 @@
   font-style: bold;
   font-size: 20px;
   flex-flow: row wrap;
-  margin-top: 15px;
+  margin: 15px auto;
+  width: 95%;
+  border: 1px solid black;
 }
 
 .OneLC {
@@ -33,13 +36,18 @@
 
 .App h1,
 h2,
-h3 {
+h3,
+a {
   font-family: "Crimson Text", serif;
   color: #221133;
 }
 
 .App h1 {
   font-size: 42px;
+}
+
+.App a {
+    text-decoration: none;
 }
 
 .EncryptedWord {

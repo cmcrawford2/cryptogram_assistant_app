@@ -205,6 +205,8 @@ class App extends React.Component {
         <p>{this.renderSolution()}</p>
         {this.ResetButton()}
         <div className="RowOfLC">{this.renderLetterCount()}</div>
+        <h3>Created by Cris Crawford 2021</h3>
+        <a href="https://www.vecteezy.com/free-vector/vector">Background by funkyboy2014 at Vecteezy</a>
       </div>
     );
   }
