@@ -166,11 +166,16 @@ class App extends React.Component {
       while (j < lc.length - 1 && lc[j] === lc[j + 1]) {
         j++; // count how many of this letter there are.
       }
-      var letterCountString = lc[i] + ": " + (j - i + 1) + " ";
-      lettersAndCounts.push(<div className="OneLC">{letterCountString}</div>);
+      lettersAndCounts.push([lc[i], j-i+1])
+      // var letterCountString = lc[i] + ": " + (j - i + 1) + " ";
+      // lettersAndCounts.push(<div className="OneLC">{letterCountString}</div>);
       i = j;
     }
-    return lettersAndCounts;
+    lettersAndCounts.sort((a,b)=>b[1] - a[1]);
+    const letterCountDivs = lettersAndCounts.map((lc) => {
+      return(<div className="OneLC">{`${lc[0]}: ${lc[1]} `}</div>);
+    })
+    return letterCountDivs;
   };
 
   ResetButton = () => {
@@ -183,6 +188,10 @@ class App extends React.Component {
     );
   };
 
+  toggleLetterFrequency = () => {
+    // Toggle whether we show letter frequencies or not.
+    this.setState({showLetterFrequency: 1 - this.state.showLetterFrequency})
+  }
   // todo: style h1 and h2, and add a background.
 
   render() {
@@ -202,11 +211,24 @@ class App extends React.Component {
         <button className="QuoteButton" onClick={this.loadQuote}>
           Quote
         </button>
-        <p>{this.renderSolution()}</p>
-        {this.ResetButton()}
-        <div className="RowOfLC">{this.renderLetterCount()}</div>
-        <h3>Created by Cris Crawford 2021</h3>
-        <a href="https://www.vecteezy.com/free-vector/vector">Background by funkyboy2014 at Vecteezy</a>
+        <div className="Solution">{this.renderSolution()}</div>
+        <footer>
+          {this.state.encrypted !== "" &&
+            <button className="ResetButton" onClick={this.clearKeys}>
+              Reset
+            </button>
+          }
+          {this.state.encrypted !== "" && this.state.showLetterFrequency===1 &&
+            <div className="RowOfLC">{this.renderLetterCount()}</div>
+          }
+          {this.state.encrypted !== "" &&
+            <button className="ShowFrequencyButton" onClick={this.toggleLetterFrequency}>
+              {this.state.letterFrequencyButtonText[this.state.showLetterFrequency]}
+            </button>
+          }
+          <h3>Created by Cris Crawford 2021</h3>
+          <a href="https://www.vecteezy.com/free-vector/vector">Background by funkyboy2014 at Vecteezy</a>
+        </footer>
       </div>
     );
   }

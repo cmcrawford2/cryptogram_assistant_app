@@ -10,27 +10,15 @@
   background-repeat: repeat;
 }
 
-.RowOfLC {
-  display: flex;
-  justify-content: center;
-  background-color: white;
-  font-style: bold;
-  font-size: 20px;
-  flex-flow: row wrap;
-  margin: 15px auto;
-  width: 95%;
-}
-
-.OneLC {
-  margin: 5px;
-}
-
 .MainEncrypted {
   display: flex;
   justify-content: left;
   flex-flow: row wrap;
   padding-top: 20px;
-  margin-top: 25px;
+  margin: 25px 0;
+  background-color: #fff7bb;
+  border-top: 2px solid gray;
+  border-bottom: 2px solid gray;
 }
 
 .App h1,
@@ -72,7 +60,8 @@ a {
 
 .SubmitQuote,
 .QuoteButton,
-.ResetButton {
+.ResetButton,
+.ShowFrequencyButton {
   font-size: 20px;
   text-align: center;
   font-weight: normal;
@@ -103,4 +92,36 @@ a {
 .UserCryptogram {
   font-size: 20px;
   height: 40px;
+}
+
+footer {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.RowOfLC {
+  display: flex;
+  justify-content: center;
+  background-color: white;
+  font-style: bold;
+  font-size: 20px;
+  flex-flow: row wrap;
+  margin: 15px auto;
+  width: fit-content;
+  max-width: 95%;
+}
+
+.OneLC {
+  margin: 5px;
+}
+
+.ResetButton {
+  margin-bottom: 10px;
+}
+
+.ShowFrequencyButton
+{
+  margin-top: 10px;
 }
