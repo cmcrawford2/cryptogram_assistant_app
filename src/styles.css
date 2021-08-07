@@ -111,10 +111,12 @@ footer {
   margin: 15px auto;
   width: fit-content;
   max-width: 95%;
+  line-height: 25px;
+  padding: 5px;
 }
 
 .OneLC {
-  margin: 5px;
+  margin: 0 5px;
 }
 
 .ResetButton {

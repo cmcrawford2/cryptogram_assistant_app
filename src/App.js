@@ -147,6 +147,19 @@ class App extends React.Component {
     return <div className="MainEncrypted">{renderedWords}</div>;
   };
 
+  showUsedLetters = () => {
+    const usedLetters = [];
+    this.state.keyArray.forEach(letterString => {
+      if (letterString !== "")
+        usedLetters.push(letterString.toUpperCase());
+    });
+    if (usedLetters.length === 0) return;
+    usedLetters.sort((a,b) => a.localeCompare(b));
+    return <div className="RowOfLC">
+      <div className="OneLC">Letters used: {usedLetters.join(" ")}</div>
+    </div>;
+  }
+
   renderLetterCount = () => {
     // This function computes letter count for all letters.
     // I wonder whether it could be written more gracefully.
@@ -178,16 +191,6 @@ class App extends React.Component {
     return letterCountDivs;
   };
 
-  ResetButton = () => {
-    // The user would like us to get rid of all solution letters.
-    if (this.state.encrypted === "") return; // Not sure why I check.
-    return (
-      <button className="ResetButton" onClick={this.clearKeys}>
-        Reset
-      </button>
-    );
-  };
-
   toggleLetterFrequency = () => {
     // Toggle whether we show letter frequencies or not.
     this.setState({showLetterFrequency: 1 - this.state.showLetterFrequency})
@@ -213,6 +216,9 @@ class App extends React.Component {
         </button>
         <div className="Solution">{this.renderSolution()}</div>
         <footer>
+          {this.state.encrypted !== "" &&
+            this.showUsedLetters()
+          }
           {this.state.encrypted !== "" &&
             <button className="ResetButton" onClick={this.clearKeys}>
               Reset
