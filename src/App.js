@@ -11,7 +11,7 @@ class App extends React.Component {
 
   // updateMessage is called when the user enters their own cryptogram.
   updateMessage = (event) => {
-    var inputString = event.target.value;
+    const inputString = event.target.value;
     this.setState({ encrypted: inputString });
     // Clear keys from previous quote.
     this.clearKeys();
@@ -19,21 +19,21 @@ class App extends React.Component {
 
   clearKeys = () => {
     // Reset the key array to all empty strings.
-    var emptyKeys = this.state.keyArray.map(() => "");
+    const emptyKeys = this.state.keyArray.map(() => "");
     this.setState({ keyArray: emptyKeys });
   };
 
   loadQuote = () => {
     // encryptedQuote() chooses a random quote from an array and encodes it
     // in a randomized substitution code of alphabet letters.
-    var quote = encryptedQuote();
+    const quote = encryptedQuote();
     this.setState({ encrypted: quote });
     // Make sure the key array is empty for the new quote.
     this.clearKeys();
     //this.renderSolution();
     // We also need to clear the input box in case there's a user entry in it.
     // If I can fix how this is done, we won't need this code.
-    var textEntry = document.getElementById("UserInputBox");
+    const textEntry = document.getElementById("UserInputBox");
     textEntry.value = "";
   };
 
@@ -41,30 +41,28 @@ class App extends React.Component {
 
   getKeyLetterIndex = (letter) => {
     // The index of the letter in the index array is just its index in A-Z.
-    var uLetter = letter.toUpperCase(); // Should be but just to be safe.
-    var alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
-    return alphabet.indexOf(uLetter);
+    const alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+    return alphabet.indexOf(letter.toUpperCase());
   };
 
   getSolutionLetter = (letter) => {
     // If there is a solution letter for the input encoded letter, this returns it.
     // Otherwise it just returns the empty string.
-    var keyArrayIndex = this.getKeyLetterIndex(letter);
+    const keyArrayIndex = this.getKeyLetterIndex(letter);
     return this.state.keyArray[keyArrayIndex];
   };
 
   setSolutionLetter = (event) => {
     // A new solution letter has been typed above a coded letter.
-    var solutionLetter = event.target.value;
+    const solutionLetter = event.target.value;
     // The id of the target was set to the index of the letter in the original cryptogram.
     // So we know what the encoded letter is that corresponds to the user input.
-    var index = event.target.id;
-    var keyLetter = this.state.encrypted[index];
+    const keyLetter = this.state.encrypted[event.target.id];
     // Get the index of the encoded letter in the key array - 1 to 26.
-    var keyArrayIndex = this.getKeyLetterIndex(keyLetter);
+    const keyArrayIndex = this.getKeyLetterIndex(keyLetter);
     if (keyArrayIndex === -1) return; // Designed to not happen, but just in case...
     // Update a copy of the key array with the user decrypted letter.
-    var copiedKeyArray = this.state.keyArray;
+    const copiedKeyArray = this.state.keyArray;
     copiedKeyArray[keyArrayIndex] = solutionLetter;
     // Update the key Array with the updated copy.
     this.setState({ keyArray: copiedKeyArray });
@@ -74,7 +72,7 @@ class App extends React.Component {
 
   renderLetterEntry = (letter, index) => {
     // Set up the input box above each letter of the cryptogram.
-    var solutionLetter = this.getSolutionLetter(letter);
+    const solutionLetter = this.getSolutionLetter(letter);
     // "solutionLetter" will be an empty string if the letter is not decrypted yet.
     return (
       <input
@@ -92,27 +90,25 @@ class App extends React.Component {
   convertChar = (letter, index) => {
     // Return a div that has a space on top and the encrypted letter below.
     // The index is a unique identifier for the input box above the letter.
-    var uLetter = letter.toUpperCase();
-    var top, bottom;
-    if (uLetter < "A" || uLetter > "Z") {
-      // Space or punctuation goes on top and just a space below.
-      top = <div className="Punctuation">{uLetter}</div>;
-      bottom = <div className="CodedLetter">&nbsp;</div>;
-    } else {
-      top = this.renderLetterEntry(letter, index);
-      bottom = <div className="CodedLetter">{uLetter}</div>;
-    }
+    const uLetter = letter.toUpperCase();
+    const notLetter = uLetter < "A" || uLetter > "Z";
+    // We're making a little column of two things: if it's not a letter, 
+    // the top is the character and the bottom is just blank.
+    // If it's a letter, the top is a space for the guess
+    // and the bottom is the uppercase letter.
     return (
-      <div className="LetterSpace">
-        {top}
-        {bottom}
+      <div className="LetterSpace" key={index}>
+        {notLetter ? <div className="Punctuation">{uLetter}</div>
+                   : this.renderLetterEntry(letter, index)}
+        {notLetter ? <div className="CodedLetter">&nbsp;</div>
+                   : <div className="CodedLetter">{uLetter}</div>}
       </div>
     );
   };
 
   renderLetters = () => {
     // Unpack all the characters.
-    var quoteAsLetters = this.state.encrypted.split("");
+    const quoteAsLetters = this.state.encrypted.split("");
     // Make a div for each char that has an input box on top if the char is a letter.
     return quoteAsLetters.map(this.convertChar);
   };
@@ -125,34 +121,26 @@ class App extends React.Component {
     // Render all the letters at once!!!!
     // This is required to give input letter boxes an id that points back to the coded letter.
     // Rendered letters include a guess input box above each A-Z,
-    // And the index must be the position of the letter in the entire string.
-    var renderedChars = this.renderLetters();
+    // And the index must be the position of the coded letter in the original string.
+    const renderedChars = this.renderLetters();
     // Now that the letters are rendered, group them in words so that words do not break across lines.
-    var phraseAsWords = this.state.encrypted.split(" ");
-    var renderedWords = [];
-    var startIndex = 0;
-    for (var i = 0; i < phraseAsWords.length; i++) {
-      var nThisWord = phraseAsWords[i].length;
-      // convertedWord is an array of letter divs corresponding to any word, including punctuation.
-      var convertedWord = renderedChars.slice(
-        startIndex,
-        startIndex + nThisWord
-      );
-      // Did I make a letter div for spaces that we're not using? Unclear.
-      renderedWords.push(<div className="EncryptedWord">{convertedWord}</div>);
+    const phraseAsWords = this.state.encrypted.split(" ");
+    let startIndex = 0;
+    const renderedWords = phraseAsWords.map((word, index) => {
+      const nThisWord = word.length;
+      const renderedWord = renderedChars.slice(startIndex, startIndex + nThisWord);
       // Include the removed space when advancing startIndex.
       startIndex += nThisWord + 1;
-    }
+      return(<div className="EncryptedWord" key={index}>{renderedWord}</div>);
+    });
     // Render the quote together with the input letter boxes as a list of words.
     return <div className="MainEncrypted">{renderedWords}</div>;
   };
 
   showUsedLetters = () => {
-    const usedLetters = [];
-    this.state.keyArray.forEach(letterString => {
-      if (letterString !== "")
-        usedLetters.push(letterString.toUpperCase());
-    });
+    const keyArray = this.state.keyArray;
+    const usedLetters = keyArray.filter(letter => letter !== "")
+                                .map(letter => letter.toUpperCase());
     if (usedLetters.length === 0) return;
     usedLetters.sort((a,b) => a.localeCompare(b));
     return <div className="RowOfLC">
@@ -162,31 +150,18 @@ class App extends React.Component {
 
   renderLetterCount = () => {
     // This function computes letter count for all letters.
-    // I wonder whether it could be written more gracefully.
-    // Also the layout is clunky.
-    var encryptedUpperCase = this.state.encrypted.toUpperCase();
-    var lc = []; // letterCountArray
-    for (var i = 0; i < encryptedUpperCase.length; i++) {
-      var letter = encryptedUpperCase[i];
-      if (letter >= "A" && letter <= "Z") {
-        lc.push(letter);
-      }
-    }
-    lc.sort(); // Sort A to Z
-    var lettersAndCounts = [];
-    for (i = 0; i < lc.length; i++) {
-      var j = i;
-      while (j < lc.length - 1 && lc[j] === lc[j + 1]) {
-        j++; // count how many of this letter there are.
-      }
-      lettersAndCounts.push([lc[i], j-i+1])
-      // var letterCountString = lc[i] + ": " + (j - i + 1) + " ";
-      // lettersAndCounts.push(<div className="OneLC">{letterCountString}</div>);
-      i = j;
-    }
-    lettersAndCounts.sort((a,b)=>b[1] - a[1]);
-    const letterCountDivs = lettersAndCounts.map((lc) => {
-      return(<div className="OneLC">{`${lc[0]}: ${lc[1]} `}</div>);
+    const encrypted = this.state.encrypted.toUpperCase()
+      .split("")
+      .filter(letter => letter >= "A" && letter <= "Z");
+    const uniqueLetters =
+      encrypted.filter((letter, index) => index === encrypted.indexOf(letter));
+    // Create an array of unique letters and total of those letters in the encrypted text.
+    const lettersAndCounts = uniqueLetters.map(uniqueLetter =>
+      [uniqueLetter, encrypted.filter(letter => letter === uniqueLetter).length]
+    );
+    lettersAndCounts.sort((a,b) => b[1]-a[1]);
+    const letterCountDivs = lettersAndCounts.map((lc, index) => {
+      return(<div className="OneLC" key={index}>{`${lc[0]}: ${lc[1]} `}</div>);
     })
     return letterCountDivs;
   };
@@ -195,7 +170,6 @@ class App extends React.Component {
     // Toggle whether we show letter frequencies or not.
     this.setState({showLetterFrequency: 1 - this.state.showLetterFrequency})
   }
-  // todo: style h1 and h2, and add a background.
 
   render() {
     return (
