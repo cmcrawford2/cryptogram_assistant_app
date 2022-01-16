@@ -206,7 +206,7 @@ class App extends React.Component {
               {this.state.letterFrequencyButtonText[this.state.showLetterFrequency]}
             </button>
           }
-          <h3>Created by Cris Crawford 2021</h3>
+          <h3>Created by Cris Crawford 2021-2022</h3>
           <a href="https://www.vecteezy.com/free-vector/vector">Background by funkyboy2014 at Vecteezy</a>
         </footer>
       </div>
