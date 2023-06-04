@@ -92,16 +92,22 @@ class App extends React.Component {
     // The index is a unique identifier for the input box above the letter.
     const uLetter = letter.toUpperCase();
     const notLetter = uLetter < "A" || uLetter > "Z";
-    // We're making a little column of two things: if it's not a letter, 
+    // We're making a little column of two things: if it's not a letter,
     // the top is the character and the bottom is just blank.
     // If it's a letter, the top is a space for the guess
     // and the bottom is the uppercase letter.
     return (
       <div className="LetterSpace" key={index}>
-        {notLetter ? <div className="Punctuation">{uLetter}</div>
-                   : this.renderLetterEntry(letter, index)}
-        {notLetter ? <div className="CodedLetter">&nbsp;</div>
-                   : <div className="CodedLetter">{uLetter}</div>}
+        {notLetter ? (
+          <div className="Punctuation">{uLetter}</div>
+        ) : (
+          this.renderLetterEntry(letter, index)
+        )}
+        {notLetter ? (
+          <div className="CodedLetter">&nbsp;</div>
+        ) : (
+          <div className="CodedLetter">{uLetter}</div>
+        )}
       </div>
     );
   };
@@ -128,10 +134,17 @@ class App extends React.Component {
     let startIndex = 0;
     const renderedWords = phraseAsWords.map((word, index) => {
       const nThisWord = word.length;
-      const renderedWord = renderedChars.slice(startIndex, startIndex + nThisWord);
+      const renderedWord = renderedChars.slice(
+        startIndex,
+        startIndex + nThisWord
+      );
       // Include the removed space when advancing startIndex.
       startIndex += nThisWord + 1;
-      return(<div className="EncryptedWord" key={index}>{renderedWord}</div>);
+      return (
+        <div className="EncryptedWord" key={index}>
+          {renderedWord}
+        </div>
+      );
     });
     // Render the quote together with the input letter boxes as a list of words.
     return <div className="MainEncrypted">{renderedWords}</div>;
@@ -139,37 +152,43 @@ class App extends React.Component {
 
   showUsedLetters = () => {
     const keyArray = this.state.keyArray;
-    const usedLetters = keyArray.filter(letter => letter !== "")
-                                .map(letter => letter.toUpperCase());
+    const usedLetters = keyArray
+      .filter((letter) => letter !== "")
+      .map((letter) => letter.toUpperCase());
     if (usedLetters.length === 0) return;
-    usedLetters.sort((a,b) => a.localeCompare(b));
-    return <div className="RowOfLC">
-      <div className="OneLC">Letters used: {usedLetters.join(" ")}</div>
-    </div>;
-  }
+    usedLetters.sort((a, b) => a.localeCompare(b));
+    return (
+      <div className="RowOfLC">
+        <div className="OneLC">Letters used: {usedLetters.join(" ")}</div>
+      </div>
+    );
+  };
 
   renderLetterCount = () => {
     // This function computes letter count for all letters.
-    const encrypted = this.state.encrypted.toUpperCase()
+    const encrypted = this.state.encrypted
+      .toUpperCase()
       .split("")
-      .filter(letter => letter >= "A" && letter <= "Z");
-    const uniqueLetters =
-      encrypted.filter((letter, index) => index === encrypted.indexOf(letter));
-    // Create an array of unique letters and total of those letters in the encrypted text.
-    const lettersAndCounts = uniqueLetters.map(uniqueLetter =>
-      [uniqueLetter, encrypted.filter(letter => letter === uniqueLetter).length]
+      .filter((letter) => letter >= "A" && letter <= "Z");
+    const uniqueLetters = encrypted.filter(
+      (letter, index) => index === encrypted.indexOf(letter)
     );
-    lettersAndCounts.sort((a,b) => b[1]-a[1]);
+    // Create an array of unique letters and total of those letters in the encrypted text.
+    const lettersAndCounts = uniqueLetters.map((uniqueLetter) => [
+      uniqueLetter,
+      encrypted.filter((letter) => letter === uniqueLetter).length,
+    ]);
+    lettersAndCounts.sort((a, b) => b[1] - a[1]);
     const letterCountDivs = lettersAndCounts.map((lc, index) => {
-      return(<div className="OneLC" key={index}>{`${lc[0]}: ${lc[1]} `}</div>);
-    })
+      return <div className="OneLC" key={index}>{`${lc[0]}: ${lc[1]} `}</div>;
+    });
     return letterCountDivs;
   };
 
   toggleLetterFrequency = () => {
     // Toggle whether we show letter frequencies or not.
-    this.setState({showLetterFrequency: 1 - this.state.showLetterFrequency})
-  }
+    this.setState({ showLetterFrequency: 1 - this.state.showLetterFrequency });
+  };
 
   render() {
     return (
@@ -190,24 +209,32 @@ class App extends React.Component {
         </button>
         <div className="Solution">{this.renderSolution()}</div>
         <footer>
-          {this.state.encrypted !== "" &&
-            this.showUsedLetters()
-          }
-          {this.state.encrypted !== "" &&
+          {this.state.encrypted !== "" && this.showUsedLetters()}
+          {this.state.encrypted !== "" && (
             <button className="ResetButton" onClick={this.clearKeys}>
               Reset
             </button>
-          }
-          {this.state.encrypted !== "" && this.state.showLetterFrequency===1 &&
-            <div className="RowOfLC">{this.renderLetterCount()}</div>
-          }
+          )}
           {this.state.encrypted !== "" &&
-            <button className="ShowFrequencyButton" onClick={this.toggleLetterFrequency}>
-              {this.state.letterFrequencyButtonText[this.state.showLetterFrequency]}
+            this.state.showLetterFrequency === 1 && (
+              <div className="RowOfLC">{this.renderLetterCount()}</div>
+            )}
+          {this.state.encrypted !== "" && (
+            <button
+              className="ShowFrequencyButton"
+              onClick={this.toggleLetterFrequency}
+            >
+              {
+                this.state.letterFrequencyButtonText[
+                  this.state.showLetterFrequency
+                ]
+              }
             </button>
-          }
-          <h3>Created by Cris Crawford 2021-2022</h3>
-          <a href="https://www.vecteezy.com/free-vector/vector">Background by funkyboy2014 at Vecteezy</a>
+          )}
+          <h3>Created by Cris Crawford 2021-2023</h3>
+          <a href="https://www.vecteezy.com/free-vector/vector">
+            Background by funkyboy2014 at Vecteezy
+          </a>
         </footer>
       </div>
     );
