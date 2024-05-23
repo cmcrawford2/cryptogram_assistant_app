@@ -1,5 +1,4 @@
 import { useState, useEffect } from "react";
-// import initialKeyArray from "./initialData.js";
 import encryptedQuote from "./encryptedQuote.js";
 import Grid from "./Grid";
 import Letter from "./Letter";
@@ -15,7 +14,7 @@ export function App() {
 
   useEffect(() => {
     // When the keyArray changes, we need to regenerate the letters in the grid.
-    // This is the only way I have figured out to do this.
+    // This is because the grid of letters is not stored in state, rather in html.
     encrypted
       .split("")
       .map((letter, index) => (
@@ -144,7 +143,7 @@ export function App() {
               : "Show Letter Frequency"}
           </button>
         )}
-        <h3>Created by Cris Crawford 2021-2023</h3>
+        <h3>Created by Cris Crawford 2021-2024</h3>
         <a href="https://www.vecteezy.com/free-vector/vector">
           Background by funkyboy2014 at Vecteezy
         </a>
