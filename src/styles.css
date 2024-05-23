@@ -34,7 +34,7 @@ a {
 }
 
 .App a {
-    text-decoration: none;
+  text-decoration: none;
 }
 
 .EncryptedWord {
@@ -92,6 +92,7 @@ a {
 .UserCryptogram {
   font-size: 20px;
   height: 40px;
+  width: 286px;
 }
 
 footer {
@@ -123,7 +124,6 @@ footer {
   margin-bottom: 10px;
 }
 
-.ShowFrequencyButton
-{
+.ShowFrequencyButton {
   margin-top: 10px;
 }
