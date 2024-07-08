@@ -98,8 +98,10 @@ export function App() {
 
   return (
     <div className="App">
-      <h1>Personal Cryptogram Assistant</h1>
-      <h2>I will make it easy for you to solve a cryptogram!</h2>
+      <h1 style={{ color: "#0000a0" }}>Personal Cryptogram Assistant</h1>
+      <h2 style={{ color: "#007700" }}>
+        I will make it easy for you to solve a cryptogram!
+      </h2>
       <input
         className="UserCryptogram"
         type="text"
@@ -107,7 +109,7 @@ export function App() {
         placeholder=" Enter your cryptogram here..."
         onChange={updateMessage}
       />
-      <h2>Or try one from my vault!</h2>
+      <h2 style={{ color: "#800000" }}>Or try one from my vault!</h2>
       <button className="QuoteButton" onClick={loadQuote}>
         Quote
       </button>
