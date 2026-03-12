@@ -31,6 +31,7 @@ export default function Letter({
           id={index}
           value={solutionLetter}
           onChange={setSolutionLetter}
+          autoComplete="off"
         />
       )}
       {notLetter ? (

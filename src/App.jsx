@@ -10,28 +10,13 @@ export function App() {
   // and an array of 26 blank strings for the decoded letters.
   const [encrypted, setEncrypted] = useState("");
   const [keyArray, setKeyArray] = useState(Array(26).fill(""));
+  const [userInput, setUserInput] = useState("");
   const [showLetterFrequency, setShowLetterFrequency] = useState(false);
-
-  useEffect(() => {
-    // When the keyArray changes, we need to regenerate the letters in the grid.
-    // This is because the grid of letters is not stored in state, rather in html.
-    encrypted
-      .split("")
-      .map((letter, index) => (
-        <Letter
-          letter={letter}
-          index={index}
-          setSolutionLetter={setSolutionLetter}
-          getSolutionLetter={getSolutionLetter}
-          key={index}
-        />
-      ));
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [keyArray]);
 
   // updateMessage is called when the user enters their own cryptogram.
   function updateMessage(event) {
     const inputString = event.target.value;
+    setUserInput(inputString);
     setEncrypted(inputString);
     // Clear keys from previous quote.
     setKeyArray(Array(26).fill(""));
@@ -41,12 +26,10 @@ export function App() {
     // encryptedQuote() chooses a random quote from an array and encodes it
     // in a randomized substitution code of alphabet letters.
     const quote = encryptedQuote();
+    setUserInput("");
     setEncrypted(quote);
     // Make sure the key array is empty for the new quote.
     setKeyArray(Array(26).fill(""));
-    // We also need to clear the input box in case there's a user entry in it.
-    const textEntry = document.getElementById("UserInputBox");
-    textEntry.value = "";
   }
 
   function getKeyLetterIndex(letter) {
@@ -105,8 +88,8 @@ export function App() {
       <input
         className="UserCryptogram"
         type="text"
-        id="UserInputBox" /* Need this to clear input if quote is selected. */
         placeholder=" Enter your cryptogram here..."
+        value={userInput}
         onChange={updateMessage}
       />
       <h2 style={{ color: "#800000" }}>Or try one from my vault!</h2>
@@ -145,7 +128,7 @@ export function App() {
               : "Show Letter Frequency"}
           </button>
         )}
-        <h3>Created by Cris Crawford 2021-2024</h3>
+        <h3>Created by Cris Crawford 2021-2026</h3>
         <a href="https://www.vecteezy.com/free-vector/vector">
           Background by funkyboy2014 at Vecteezy
         </a>
